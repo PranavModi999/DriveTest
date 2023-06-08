@@ -9,6 +9,8 @@ let { getCategory } = require("./models/category.model");
 //creating new server instance
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 //exposing view folder to allow server to access frotend code
 app.use(express.static(path.join(__dirname, "views")));
 //changing view engine to ejs
@@ -37,7 +39,12 @@ app.get("/g2", (req, res) => {
     data: getCategory("g2"),
   });
 });
-
+app.post("/g2/user", (req, res) => {
+  console.log(req.body);
+  res.send({
+    success: "ok",
+  });
+});
 //Login page route
 app.get("/login", (req, res) => {
   res.render("index", {
