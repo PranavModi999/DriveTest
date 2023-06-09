@@ -4,11 +4,12 @@ const express = require("express");
 const ejs = require("ejs");
 
 //importing category model  which returns relevant category data stored in list
-let { getCategory } = require("./models/category.model");
-
+const { getCategory } = require("./models/category.model");
+const { saveUser } = require("./models/user.model");
 //creating new server instance
 const app = express();
 
+//to allow our application to parse json in post methods
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //exposing view folder to allow server to access frotend code
@@ -39,10 +40,12 @@ app.get("/g2", (req, res) => {
     data: getCategory("g2"),
   });
 });
-app.post("/g2/user", (req, res) => {
-  console.log(req.body);
-  res.send({
-    success: "ok",
+//handle post data and store user object
+app.post("/g2", async (req, res) => {
+  console.log("USER-DATA:", req.body);
+  await saveUser(req.body);
+  res.status(200).json({
+    success: true,
   });
 });
 //Login page route

@@ -9,32 +9,33 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  licenseNumber: {
-    type: String,
-    required: true,
-  },
+
   age: {
     type: Number,
     required: true,
   },
+  licenseNumber: {
+    type: String,
+    // required: true,
+  },
   car_details: {
     make: {
       type: String,
-      required: true,
+      // required: true,
     },
     model: {
       type: String,
-      required: true,
+      // required: true,
     },
     year: {
       type: Date,
-      required: true,
+      // required: true,
     },
     plateNumber: {
       type: Number,
-      required: true,
+      // required: true,
     },
   },
 });
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model("users", userSchema);
