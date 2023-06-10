@@ -33,5 +33,5 @@ The Admin Interface is designed for administrators who manage the drive test cen
 
 To run this application locally, follow these steps:
 
-- git clone https://github.com/your-username/drive-test-kiosk.git
+- git clone https://github.com/PranavModi999/DriveTest.git
 - use command "npm start"
