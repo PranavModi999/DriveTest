@@ -14,26 +14,30 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  birthDate: {
+    type: String,
+    required: true,
+  },
   licenseNumber: {
     type: String,
-    // required: true,
+    required: true,
   },
   car_details: {
     make: {
       type: String,
-      // required: true,
+      required: true,
     },
     model: {
       type: String,
-      // required: true,
+      required: true,
     },
     year: {
       type: Date,
-      // required: true,
+      required: true,
     },
     plateNumber: {
       type: Number,
-      // required: true,
+      required: true,
     },
   },
 });

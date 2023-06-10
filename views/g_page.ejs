@@ -1,5 +1,20 @@
 <p><%= data.description %></p>
-<form>
+<div
+  id="searchAlert"
+  style="display: none"
+  class="alert alert-danger alert-dismissible fade show"
+  role="alert"
+>
+  No user Found!
+  <a href="/g2" class="alert-link"><strong> Create New User!</strong></a>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
+<form id="searchForm">
   <div class="row">
     <div class="col">
       <div class="mb-3">
@@ -12,3 +27,107 @@
     </div>
   </div>
 </form>
+<br />
+<form id="detailsForm" style="display: none">
+  <h4>Personal Details:</h4>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <label for="firstName" class="form-label">First Name:</label>
+        <input
+          type="text"
+          name="firstName"
+          class="form-control"
+          id="firstNameGpage"
+          disabled
+        />
+      </div>
+      <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name:</label>
+        <input
+          type="text"
+          name="lastName"
+          class="form-control"
+          id="lastNameGpage"
+          disabled
+        />
+      </div>
+      <div class="mb-3">
+        <label for="age" class="form-label">Age:</label>
+        <input
+          type="number"
+          name="age"
+          class="form-control"
+          id="ageGpage"
+          disabled
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <label for="licenseNumber" class="form-label">License Number:</label>
+        <input
+          type="text"
+          name="licenseNumber"
+          class="form-control"
+          id="licenseNumberGpage"
+          disabled
+        />
+      </div>
+      <div class="mb-3">
+        <label for="birthDate" class="form-label">Date of Birth:</label>
+        <input
+          type="date"
+          name="birthDate"
+          class="form-control"
+          id="birthDateGpage"
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+  <h4>Car Information:</h4>
+  <div class="row">
+    <div class="col">
+      <div class="mb-3">
+        <label for="make" class="form-label">Make:</label>
+        <input type="text" name="make" class="form-control" id="makeGpage" />
+      </div>
+      <div class="mb-3">
+        <label for="plateNumber" class="form-label">Plate Number:</label>
+        <input
+          type="text"
+          name="plateNumber"
+          class="form-control"
+          id="plateNumberGpage"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="mb-3">
+        <label for="model" class="form-label">Model:</label>
+        <input type="text" name="model" class="form-control" id="modelGpage" />
+      </div>
+      <div class="mb-3">
+        <label for="year" class="form-label">Year:</label>
+        <input type="number" name="year" class="form-control" id="yearGpage" />
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+<br />
+<div
+  id="updateAlert"
+  style="display: none"
+  class="alert alert-success alert-dismissible fade show"
+  role="alert"
+>
+  <strong></strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>

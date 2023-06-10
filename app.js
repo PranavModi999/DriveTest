@@ -5,7 +5,12 @@ const ejs = require("ejs");
 
 //importing category model  which returns relevant category data stored in list
 const { getCategory } = require("./models/category.model");
-const { saveUser } = require("./models/user.model");
+const {
+  getUserByLicenseNumber,
+  updateUserByLicensenumber,
+  validateUser,
+  saveUser,
+} = require("./models/user.model");
 //creating new server instance
 const app = express();
 
@@ -22,35 +27,57 @@ app.get("/", (req, res) => res.redirect("/dashboard"));
 
 //Dashboard route
 app.get("/dashboard", (req, res) => {
-  res.render("index", {
+  return res.render("index", {
     data: getCategory("dashboard"),
   });
 });
 
 //G page route
 app.get("/g", (req, res) => {
-  res.render("index", {
+  return res.render("index", {
     data: getCategory("g"),
   });
 });
-
+//G get User Route
+app.get("/g/:licenseNumber", async (req, res) => {
+  console.log("Get User:", req.params.licenseNumber);
+  const user = await getUserByLicenseNumber(req.params.licenseNumber);
+  if (user) {
+    res.status(200).json(user);
+  } else {
+    res.status(404).send();
+  }
+});
+//G page Put Update user
+app.put("/g", (req, res) => {
+  console.log(req.body);
+  const isSuccess = updateUserByLicensenumber(req.body);
+  if (isSuccess) {
+    res.status(201).send();
+  } else {
+    res.status(500).send();
+  }
+});
 //G2 page route
 app.get("/g2", (req, res) => {
-  res.render("index", {
+  return res.render("index", {
     data: getCategory("g2"),
   });
 });
 //handle post data and store user object
 app.post("/g2", async (req, res) => {
   console.log("USER-DATA:", req.body);
-  await saveUser(req.body);
-  res.status(200).json({
-    success: true,
-  });
+  const user = req.body;
+  if (validateUser(user)) {
+    await saveUser(user);
+    return res.status(201).send();
+  } else {
+    return res.status(400).send();
+  }
 });
 //Login page route
 app.get("/login", (req, res) => {
-  res.render("index", {
+  return res.render("index", {
     data: getCategory("login"),
   });
 });
