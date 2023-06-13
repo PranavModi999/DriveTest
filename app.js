@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //exposing view folder to allow server to access frotend code
-app.use(express.static(path.join(__dirname, "views")));
+app.use(express.static(path.join(__dirname, "public")));
 //changing view engine to ejs
 app.set("view engine", "ejs");
 
@@ -34,7 +34,7 @@ app.get("/dashboard", (req, res) => {
 
 //G page route
 app.get("/g", (req, res) => {
-  return res.render("index", {
+  return res.render("g_page", {
     data: getCategory("g"),
   });
 });
@@ -60,7 +60,7 @@ app.put("/g", (req, res) => {
 });
 //G2 page route
 app.get("/g2", (req, res) => {
-  return res.render("index", {
+  return res.render("g2_page", {
     data: getCategory("g2"),
   });
 });
@@ -77,7 +77,7 @@ app.post("/g2", async (req, res) => {
 });
 //Login page route
 app.get("/login", (req, res) => {
-  return res.render("index", {
+  return res.render("login", {
     data: getCategory("login"),
   });
 });

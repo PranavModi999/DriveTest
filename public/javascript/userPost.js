@@ -57,6 +57,7 @@ function getUserData() {
     car_details: car_details,
   };
 }
+
 if (userForm) {
   userForm.addEventListener("submit", (evt) => {
     evt.preventDefault();

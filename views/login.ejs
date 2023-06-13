@@ -1,17 +1,49 @@
-<p><%= data.description %></p>
-<form>
-  <div class="mb-3">
-    <label for="userName" class="form-label">Username:</label>
-    <input
-      type="text"
-      class="form-control"
-      id="userName"
-      aria-describedby="userNameHelp"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" />
-  </div>
-  <button type="submit" class="btn btn-p`rimary">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./layouts/header.js') %>
+  <body>
+    <!-- navigation bar imported from nav.ejs -->
+    <%- include('./layouts/nav'); %>
+    <!-- card layout imported from card.ejs -->
+    <main>
+      <div class="m-4 rounded-2 border">
+        <div class="row p-3">
+          <div class="col-8 px-5 py-4">
+            <h3>Welcome to <span> <%= data.title %> </span>!</h3>
+            <hr />
+
+            <p><%= data.description %></p>
+            <form>
+              <div class="mb-3">
+                <label for="userName" class="form-label">Username:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userName"
+                  aria-describedby="userNameHelp"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="col-4">
+            <img src="<%= data.image %>" class="img-fluid p-auto d-block" />
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <img src="./layouts/header.js" alt="" />
+  <script src="./javascript/userPost.js"></script>
+  <script src="./javascript/userGet.js"></script>
+</html>
