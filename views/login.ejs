@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./layouts/header.js') %>
+  <%- include('./layouts/header') %>
   <body>
     <!-- navigation bar imported from nav.ejs -->
     <%- include('./layouts/nav'); %>
@@ -43,7 +43,5 @@
       </div>
     </main>
   </body>
-  <img src="./layouts/header.js" alt="" />
-  <script src="./javascript/userPost.js"></script>
-  <script src="./javascript/userGet.js"></script>
+  <%- include('./layouts/scripts'); %>
 </html>

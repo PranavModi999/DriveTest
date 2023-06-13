@@ -8,16 +8,20 @@ function showAlert(isSuccess) {
 
   if (isSuccess) {
     userAlert.style.display = "block";
-    userAlert.classList.add("alert-sucess");
+    userAlert.classList.remove("alert-danger");
+    userAlert.classList.add("alert-success");
     userAlertText.textContent = "Data Saved Successfully!";
   } else {
     userAlert.style.display = "block";
+    userAlert.classList.remove("alert-success");
     userAlert.classList.add("alert-danger");
     userAlertText.textContent = "Please enter valid data!";
   }
 }
 
-async function postUserData(data) {
+async function postUserData() {
+  const data = await getUserDataFromForm();
+  console.log(data);
   const response = await fetch("/g2", {
     method: "Post",
     headers: {
@@ -25,11 +29,10 @@ async function postUserData(data) {
     },
     body: JSON.stringify(data),
   });
-  console.log("here");
   showAlert(response.ok);
   console.log(response.ok, await response.json());
 }
-function getUserData() {
+function getUserDataFromForm() {
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
   const age = document.getElementById("age").value;
@@ -61,9 +64,6 @@ function getUserData() {
 if (userForm) {
   userForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    const data = getUserData();
-
-    console.log(data);
-    postUserData(data);
+    postUserData();
   });
 }

@@ -13,7 +13,7 @@ const model = document.getElementById("modelGpage");
 const year = document.getElementById("yearGpage");
 const plateNumber = document.getElementById("plateNumberGpage");
 
-async function getUserData() {
+async function getUserDataFromServer() {
   const response = await fetch(
     `/g/${encodeURIComponent(
       document.getElementById("licenseNumber").value || -1
@@ -76,7 +76,7 @@ function showAlert(isSuccess) {
 if (searchForm) {
   searchForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    getUserData();
+    getUserDataFromServer();
   });
   detailsForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
