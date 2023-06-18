@@ -22,9 +22,9 @@ async function getUserDataFromServer() {
       method: "Get",
     }
   );
-  if (response.ok) {
-    const userData = await response.json();
-    console.log(userData);
+  const userData = await response.json();
+  console.log("UserData:", userData);
+  if (response.ok && userData) {
     searchAlert.style.display = "none";
     detailsForm.style.display = "block";
 
@@ -57,18 +57,20 @@ async function updateCarDetails() {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
   });
-  showAlert(response.ok);
+  showAlertGet(response.ok);
 }
-function showAlert(isSuccess) {
+function showAlertGet(isSuccess) {
   const userAlert = document.getElementById("updateAlert");
   const userAlertText = userAlert.firstElementChild;
 
   if (isSuccess) {
     userAlert.style.display = "block";
-    userAlert.classList.add("alert-sucess");
+    userAlert.classList.remove("alert-danger");
+    userAlert.classList.add("alert-success");
     userAlertText.textContent = "Data Updated Successfully!";
   } else {
     userAlert.style.display = "block";
+    userAlert.classList.remove("alert-success");
     userAlert.classList.add("alert-danger");
     userAlertText.textContent = "Something Went wrong!";
   }

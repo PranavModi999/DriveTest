@@ -36,7 +36,7 @@ const userSchema = new mongoose.Schema({
       required: true,
     },
     plateNumber: {
-      type: Number,
+      type: String,
       required: true,
     },
   },

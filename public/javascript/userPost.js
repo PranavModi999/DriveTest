@@ -2,7 +2,7 @@ const userForm = document.getElementById("userForm");
 
 if (userForm) {
 }
-function showAlert(isSuccess) {
+function showAlertPost(isSuccess) {
   const userAlert = document.getElementById("userAlert");
   const userAlertText = userAlert.firstElementChild;
 
@@ -29,7 +29,7 @@ async function postUserData() {
     },
     body: JSON.stringify(data),
   });
-  showAlert(response.ok);
+  showAlertPost(response.ok);
   console.log(response.ok, await response.json());
 }
 function getUserDataFromForm() {

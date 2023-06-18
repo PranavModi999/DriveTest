@@ -1,10 +1,10 @@
 const express = require("express");
 const path = require("path");
 
-const g2PageController = require("./controllers/g2_page.controller");
-const gPageController = require("./controllers/g_page.controller");
-const homeController = require("./controllers/home.controller");
-const loginController = require("./controllers/login.controller");
+const loginPageRouter = require("./routers/login.router");
+const g2PageRouter = require("./routers/g2_page.router");
+const homePageRouter = require("./routers/home.router");
+const gPageRouter = require("./routers/g_page.router");
 
 //creating new server instance
 const app = express();
@@ -19,13 +19,13 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("view engine", "ejs");
 
 //mouting routes
-app.use("/", homeController);
+app.use("/", homePageRouter);
 //G page route
-app.use("/g", gPageController);
+app.use("/g", gPageRouter);
 //G2 page route
-app.use("/g2", g2PageController);
+app.use("/g2", g2PageRouter);
 //Login page route
-app.use("/login", loginController);
+app.use("/login", loginPageRouter);
 
 //exporting instance with all routes and middleware mounted onto it
 module.exports = { app };

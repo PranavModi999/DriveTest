@@ -1,24 +1,27 @@
-const express = require("express");
-
+const { default: mongoose } = require("mongoose");
 const { getCategory } = require("../models/category.model");
 const { validateUser, saveUser } = require("../models/user.model");
 
-const g2PageController = express.Router();
-
-g2PageController.get("/", (req, res) => {
+const renderG2Page = (req, res) => {
   return res.render("g2_page", {
     data: getCategory("g2"),
   });
-});
-//handle post data and store user object
-g2PageController.post("/", async (req, res) => {
+};
+
+const saveUserHandler = async (req, res) => {
   console.log("USER-DATA:", req.body);
   const user = req.body;
-  if (validateUser(user)) {
+  try {
     await saveUser(user);
     return res.status(201).send();
-  } else {
-    return res.status(400).send();
+  } catch (e) {
+    if (e instanceof mongoose.Error.ValidationError) {
+      return res
+        .status(400)
+        .send({ error: { "Invalid Data": Object.keys(e.errors) } });
+    }
+    return res.status(500).send();
   }
-});
-module.exports = g2PageController;
+};
+
+module.exports = { saveUserHandler, renderG2Page };
