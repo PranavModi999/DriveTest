@@ -11,30 +11,54 @@
           <div class="col-8 px-5 py-4">
             <h3>Welcome to <span> <%= data.title %> </span>!</h3>
             <hr />
-
+            <div
+              id="userAlertLogin"
+              style="display: none"
+              class="alert alert-success alert-dismissible fade show"
+              role="alert"
+            >
+              <strong></strong>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close"
+              ></button>
+            </div>
             <p><%= data.description %></p>
-            <form>
+
+            <form id="login-form">
               <div class="mb-3">
-                <label for="userName" class="form-label">Username:</label>
+                <label for="userNameLogin" class="form-label">Username:</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="userName"
+                  id="userNameLogin"
                   aria-describedby="userNameHelp"
+                  placeholder="Enter your Username"
+                  required
                 />
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"
-                  >Password</label
-                >
+                <label for="passwordLogin" class="form-label">Password</label>
                 <input
                   type="password"
                   class="form-control"
-                  id="exampleInputPassword1"
+                  id="passwordLogin"
+                  placeholder="Enter your password"
+                  required
                 />
               </div>
+
               <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            <!-- Button trigger modal -->
+            <p class="my-2">
+              Don't Have an account?
+              <a href="#" data-bs-toggle="modal" data-bs-target="#signUpModal"
+                >Sign Up!</a
+              >
+            </p>
           </div>
           <div class="col-4">
             <img src="<%= data.image %>" class="img-fluid p-auto d-block" />
@@ -42,6 +66,104 @@
         </div>
       </div>
     </main>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="signUpModal"
+      tabindex="-1"
+      aria-labelledby="signupModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="signupModalLabel">SIGN UP</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="signup-form">
+              <div class="mb-3">
+                <label for="userNameSignUp" class="form-label">Username:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="userNameSignUp"
+                  aria-describedby="userNameHelp"
+                  placeholder="Create your username"
+                  required
+                />
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="passwordSignUp" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passwordSignUp"
+                      placeholder="Create your password"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="passwordSignUpRenter" class="form-label"
+                      >Renter Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passwordSignUpRenter"
+                      placeholder="Renter your username"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <p class="m-2 d-flex justify-content-center">
+                Please Select A User Type:
+              </p>
+              <select
+                id="userTypeSelect"
+                class="form-select my-3"
+                aria-label="Default select example"
+              >
+                <option value="Driver" selected>Driver</option>
+                <option value="Examiner">Examiner</option>
+                <option value="Admin">Admin</option>
+              </select>
+              <div
+                id="userAlertSignup"
+                style="display: none"
+                class="alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <strong></strong>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <%- include('./layouts/scripts'); %>
 </html>
