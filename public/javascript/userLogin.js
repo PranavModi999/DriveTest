@@ -4,13 +4,13 @@ const loginForm = document.getElementById("login-form");
 const signupModal = document.getElementById("signUpModal");
 const userAlertSignup = document.getElementById("userAlertSignup");
 const userAlertLogin = document.getElementById("userAlertLogin");
-const currentUserName = document.getElementById("currentUserName");
 const gNavLink = document.getElementById("gNavLink");
 const g2NavLink = document.getElementById("g2NavLink");
 
+const logout = document.getElementById("logout");
+
 if (document.cookie.split("=")[1] === "Driver") {
   const name = document.cookie.split("=")[1];
-  currentUserName.textContent = `welcome! ${name}`;
   gNavLink.style.display = "block";
   g2NavLink.style.display = "block";
 }
@@ -31,8 +31,7 @@ const handleUserLogin = async (evt) => {
   );
   const responseJson = await response.json();
   if (response.ok) {
-    document.cookie = `username:${userName}`;
-    userNameText = userName;
+    // document.cookie = `username:${userName}`;
     userAlertLogin.style.display = "block";
     userAlertLogin.classList.remove("alert-danger");
     userAlertLogin.classList.add("alert-success");
@@ -80,6 +79,11 @@ const handleUserSignup = async (evt) => {
     userAlertSignup.style.display = "block";
     userAlertSignup.classList.remove("alert-danger");
     userAlertSignup.classList.add("alert-success");
+
+    userName.value = "";
+    password.value = "";
+    renterPassword.value = "";
+    
     userAlertSignup.firstChild.textContent = "User Created Successfully!";
   } else {
     userAlertSignup.style.display = "block";
@@ -93,4 +97,11 @@ if (signupForm) {
 }
 if (loginForm) {
   loginForm.addEventListener("submit", handleUserLogin);
+}
+if (logout) {
+  logout.addEventListener("click", () => {
+    console.log("here");
+    document.cookie = "userType=;expires=0";
+    location.reload();
+  });
 }

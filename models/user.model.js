@@ -7,6 +7,7 @@ async function saveUser(user) {
   await userDatabase.create({
     userName: user.userName,
     password: user.password,
+    userType: user.userType,
   });
   console.log(`Succesfully stored User ${user.userName}`);
 }
@@ -30,7 +31,6 @@ const getUserByLicenseNumber = async (licenseNumber) =>
 
 const verifyUser = async (user) => {
   const dbUser = await userDatabase.findOne({ userName: user.userName });
-  console.log(dbUser);
   if (dbUser) {
     const isValid = bcrypt.compareSync(user.password, dbUser.password);
     if (isValid) {

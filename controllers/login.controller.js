@@ -12,8 +12,8 @@ const saveNewUserHandler = async (req, res) => {
   res.sendStatus(201);
 };
 const verifyUserLogin = async (req, res) => {
-  console.log(req.params);
   const isValid = await verifyUser(req.params);
+  console.log("Login status", isValid);
   if (isValid.status == "login successful") {
     res.cookie("userType", isValid.userType, { maxAge: 60 * 60 * 24 });
     res.status(200).json(isValid);
