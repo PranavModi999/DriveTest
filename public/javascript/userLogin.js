@@ -9,11 +9,20 @@ const g2NavLink = document.getElementById("g2NavLink");
 
 const logout = document.getElementById("logout");
 
-if (document.cookie.split("=")[1] === "Driver") {
-  const name = document.cookie.split("=")[1];
-  gNavLink.style.display = "block";
-  g2NavLink.style.display = "block";
+function checkUserStatus() {
+  const cookies = document.cookie.split(";");
+
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    const [name, value] = cookie.split("=");
+
+    if (name === "userType" && value == "Driver") {
+      gNavLink.style.display = "block";
+      g2NavLink.style.display = "block";
+    }
+  }
 }
+
 const handleUserLogin = async (evt) => {
   evt.preventDefault();
 
@@ -75,33 +84,38 @@ const handleUserSignup = async (evt) => {
     headers: { "content-type": "application/json" },
     body: JSON.stringify(data),
   });
+
   if (response.ok) {
     userAlertSignup.style.display = "block";
     userAlertSignup.classList.remove("alert-danger");
     userAlertSignup.classList.add("alert-success");
-
-    userName.value = "";
-    password.value = "";
-    renterPassword.value = "";
-    
     userAlertSignup.firstChild.textContent = "User Created Successfully!";
   } else {
+    const responseJson = await response.json();
+
     userAlertSignup.style.display = "block";
     userAlertSignup.classList.remove("alert-success");
     userAlertSignup.classList.add("alert-danger");
-    userAlertSignup.firstChild.textContent = "Something Went wrong!";
+    userAlertSignup.firstChild.textContent =
+      responseJson.status || "Something Went wrong!";
   }
+
+  userName.value = "";
+  password.value = "";
+  renterPassword.value = "";
 };
-if (signupForm) {
-  signupForm.addEventListener("submit", handleUserSignup);
-}
-if (loginForm) {
-  loginForm.addEventListener("submit", handleUserLogin);
-}
-if (logout) {
-  logout.addEventListener("click", () => {
-    console.log("here");
-    document.cookie = "userType=;expires=0";
-    location.reload();
-  });
-}
+document.addEventListener("DOMContentLoaded", () => {
+  checkUserStatus();
+  if (signupForm) {
+    signupForm.addEventListener("submit", handleUserSignup);
+  }
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleUserLogin);
+  }
+  if (logout) {
+    logout.addEventListener("click", () => {
+      document.cookie = "userType=;expires=0";
+      location.replace("/dashboard");
+    });
+  }
+});

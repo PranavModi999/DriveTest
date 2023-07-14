@@ -13,17 +13,18 @@ const model = document.getElementById("modelGpage");
 const year = document.getElementById("yearGpage");
 const plateNumber = document.getElementById("plateNumberGpage");
 
-async function getUserDataFromServer() {
+async function getUserDataFromServer(licenseNumber) {
   const response = await fetch(
-    `/g/${encodeURIComponent(
-      document.getElementById("licenseNumber").value || -1
-    )}`,
+    `/g/${encodeURIComponent(licenseNumber || -1)}`,
     {
       method: "Get",
     }
   );
   const userData = await response.json();
   console.log("UserData:", userData);
+  return { response, userData };
+}
+function UpdateGPage({ response, userData }) {
   if (response.ok && userData) {
     searchAlert.style.display = "none";
     detailsForm.style.display = "block";
@@ -78,7 +79,9 @@ function showAlertGet(isSuccess) {
 if (searchForm) {
   searchForm.addEventListener("submit", (evt) => {
     evt.preventDefault();
-    getUserDataFromServer();
+    const number = document.getElementById("licenseNumber").value;
+    const result = getUserDataFromServer(number);
+    UpdateGPage(result);
   });
   detailsForm.addEventListener("submit", (evt) => {
     evt.preventDefault();

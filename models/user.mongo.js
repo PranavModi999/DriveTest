@@ -68,12 +68,12 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.pre("save", function (next) {
-  bcrypt.hash(this.licenseNumber, 10, (error, hash) => {
-    this.licenseNumber = hash;
-    next();
-  });
-});
+// userSchema.pre("save", function (next) {
+//   bcrypt.hash(this.licenseNumber, 10, (error, hash) => {
+//     this.licenseNumber = hash;
+//     next();
+//   });
+// });
 userSchema.pre("save", function (next) {
   bcrypt.hash(this.password, 10, (error, hash) => {
     this.password = hash;

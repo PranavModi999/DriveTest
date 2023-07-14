@@ -8,4 +8,6 @@ g2PageRouter.get("/", g2PageController.renderG2Page);
 //handle post data and store user object
 g2PageRouter.post("/", g2PageController.saveUserHandler);
 
+g2PageRouter.get("/:userName", g2PageController.getUserInfoByUserName);
+
 module.exports = g2PageRouter;
