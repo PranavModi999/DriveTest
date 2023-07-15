@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   },
   licenseNumber: {
     default: "default",
-    unique: true,
+    // unique: true,
     type: String,
     required: true,
   },
@@ -74,6 +74,7 @@ const userSchema = new mongoose.Schema({
 //     next();
 //   });
 // });
+
 userSchema.pre("save", function (next) {
   bcrypt.hash(this.password, 10, (error, hash) => {
     this.password = hash;

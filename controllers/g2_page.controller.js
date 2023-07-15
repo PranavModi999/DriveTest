@@ -21,7 +21,7 @@ const saveUserHandler = async (req, res) => {
         .status(400)
         .send({ error: { "Invalid Data": Object.keys(e.errors) } });
     }
-    return res.status(500).send();
+    return res.sendStatus(500);
   }
 };
 

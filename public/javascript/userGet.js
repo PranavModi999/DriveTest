@@ -25,7 +25,7 @@ async function getUserDataFromServer(licenseNumber) {
   return { response, userData };
 }
 function UpdateGPage({ response, userData }) {
-  if (response.ok && userData) {
+  if (response.ok && userData && userData.licenseNumber !== "default") {
     searchAlert.style.display = "none";
     detailsForm.style.display = "block";
 
@@ -76,15 +76,22 @@ function showAlertGet(isSuccess) {
     userAlertText.textContent = "Something Went wrong!";
   }
 }
-if (searchForm) {
-  searchForm.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    const number = document.getElementById("licenseNumber").value;
-    const result = getUserDataFromServer(number);
+
+document.addEventListener("DOMContentLoaded", async () => {
+  if (detailsForm) {
+    userName = getUserNameFromCookie();
+    const result = await getUserDataFromServerByUserName();
     UpdateGPage(result);
-  });
-  detailsForm.addEventListener("submit", (evt) => {
-    evt.preventDefault();
-    updateCarDetails();
-  });
-}
+
+    searchForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      const number = document.getElementById("licenseNumber").value;
+      const result = getUserDataFromServer(number);
+      UpdateGPage(result);
+    });
+    detailsForm.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      updateCarDetails();
+    });
+  }
+});

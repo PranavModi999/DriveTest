@@ -6,7 +6,7 @@ const {
 } = require("../models/user.model");
 
 const renderGPage = (req, res) => {
-  return res.render("g_page", {
+  return res.render("g_page", {  
     data: getCategory("g"),
   });
 };
