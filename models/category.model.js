@@ -1,4 +1,12 @@
 const categoryList = {
+  appointment: {
+    title: "Appointment",
+    description:
+      "The Appointment page allows G2 Admin to schedule and manage their driving test appointments with Ontario DriveTest.To start choose a date then available slots would be displayed confirm slots to book appointments.",
+    //attributing appointment image
+    // <a href="https://www.freepik.com/free-vector/date-picker-concept-illustration_11641634.htm#query=appointment&position=30&from_view=search&track=sph">Image by storyset</a> on Freepik
+    image: "images/appointment.jpg",
+  },
   login: {
     title: "Login",
     description:

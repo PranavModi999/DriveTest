@@ -5,6 +5,7 @@ const loginPageRouter = require("./routers/login.router");
 const g2PageRouter = require("./routers/g2_page.router");
 const homePageRouter = require("./routers/home.router");
 const gPageRouter = require("./routers/g_page.router");
+const appointmentRouter = require("./routers/appointment.router");
 
 //creating new server instance
 const app = express();
@@ -26,6 +27,8 @@ app.use("/g", gPageRouter);
 app.use("/g2", g2PageRouter);
 //Login page route
 app.use("/login", loginPageRouter);
+//appointment page route
+app.use("/appointment", appointmentRouter);
 
 //exporting instance with all routes and middleware mounted onto it
 module.exports = { app };

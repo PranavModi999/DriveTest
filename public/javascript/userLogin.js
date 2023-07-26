@@ -6,7 +6,7 @@ const userAlertSignup = document.getElementById("userAlertSignup");
 const userAlertLogin = document.getElementById("userAlertLogin");
 const gNavLink = document.getElementById("gNavLink");
 const g2NavLink = document.getElementById("g2NavLink");
-
+const appointmentLink = document.getElementById("appointmentLink");
 const logout = document.getElementById("logout");
 
 function checkUserStatus() {
@@ -16,9 +16,11 @@ function checkUserStatus() {
     const cookie = cookies[i].trim();
     const [name, value] = cookie.split("=");
 
-    if (name === "userType" && value == "Driver") {
+    if (name === "userType" && value === "Driver") {
       gNavLink.style.display = "block";
       g2NavLink.style.display = "block";
+    } else if (name === "userType" && value === "Admin") {
+      appointmentLink.style.display = "block";
     }
   }
 }
