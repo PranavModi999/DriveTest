@@ -10,13 +10,12 @@
             <h3>Welcome to <span> <%= data.title %> </span>!</h3>
             <hr />
             <p><%= data.description %></p>
-            <div class="container mt-5">
-              <h3 class="mb-4"><u>Admin Appointment Slots</u></h3>
+            <div class="container mt-2">
               <div class="row">
                 <div class="col-md-6">
                   <div class="mb-3">
                     <label for="appointmentDate" class="form-label"
-                      >Select Date:</label
+                      ><b>Select Date:</b></label
                     >
                     <input
                       type="date"
@@ -27,11 +26,38 @@
                   </div>
                 </div>
               </div>
+              <h5 class="mb-4">Available Slots</h5>
               <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <div id="slotsContainer">
                     <!-- Appointment slots for the selected date will be dynamically added here -->
                   </div>
+                </div>
+                <div class="btn-group" role="group">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelBtn"
+                  >
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-primary" id="bookBtn">
+                    Book
+                  </button>
+                </div>
+                <div
+                  id="AppointmentAlert"
+                  style="display: none"
+                  class="alert alert-danger alert-dismissible fade show my-3"
+                  role="alert"
+                >
+                  <span> Create New User!</span>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
                 </div>
               </div>
             </div>
