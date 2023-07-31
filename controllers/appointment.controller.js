@@ -1,8 +1,10 @@
 const {
   saveSlotsToDatabase,
   getBookedSlotsByDate,
+  updateSlotStatus,
 } = require("../models/appointment.model");
 const { getCategory } = require("../models/category.model");
+const { updateUserAppointment } = require("../models/user.model");
 
 const renderAppointmentPage = (req, res) => {
   return res.render("appointment", {
@@ -28,8 +30,18 @@ const postBookedSlots = async (req, res) => {
   }
   //TODO: store to db above booked slots
 };
-
+const putAppointmentIdIntoUser = async (req, res) => {
+  console.log("appointment ID:", req.body);
+  try {
+    await updateUserAppointment(req.body);
+    await updateSlotStatus(req.body.appointmentId, false);
+  } catch (e) {
+    return res.sendStatus(500);
+  }
+  return res.sendStatus(201);
+};
 module.exports = {
+  putAppointmentIdIntoUser,
   renderAppointmentPage,
   postBookedSlots,
   getBookedSlots,

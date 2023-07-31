@@ -8,6 +8,10 @@ const appointmentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  isTimeSlotAvailable: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const appointmentModel = mongoose.model("Appointments", appointmentSchema);

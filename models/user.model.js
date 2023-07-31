@@ -75,9 +75,20 @@ const verifyUser = async (user) => {
   }
 };
 
+const updateUserAppointment = async ({ userName, appointmentId }) => {
+  const result = await userDatabase.findOneAndUpdate(
+    { userName: userName },
+    {
+      appointmentId: appointmentId,
+    }
+  );
+  console.log("result:", result);
+};
+
 module.exports = {
   updateUserByLicensenumber,
   getUserByLicenseNumber,
+  updateUserAppointment,
   updateUserByUserName,
   getUserByUserName,
   verifyUser,

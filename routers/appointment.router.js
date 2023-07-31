@@ -13,4 +13,7 @@ appointmentRouter.get("/:selectDate", appointmentController.getBookedSlots);
 //add new book slots
 appointmentRouter.post("/", appointmentController.postBookedSlots);
 
+//update user with appointment id
+appointmentRouter.put("/", appointmentController.putAppointmentIdIntoUser);
+
 module.exports = appointmentRouter;

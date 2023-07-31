@@ -18,7 +18,16 @@ const getBookedSlotsByDate = async (date) => {
   return slots;
 };
 
+const updateSlotStatus = async (id, isAvailable) => {
+  await appointmentDatabase.findByIdAndUpdate(
+    { _id: id },
+    {
+      isTimeSlotAvailable: isAvailable,
+    }
+  );
+};
 module.exports = {
   getBookedSlotsByDate,
   saveSlotsToDatabase,
+  updateSlotStatus,
 };

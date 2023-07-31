@@ -1,8 +1,12 @@
 const appointmentAlert = document.getElementById("AppointmentAlert");
 const appointmentDate = document.getElementById("appointmentDate");
 const slotsContainer = document.getElementById("slotsContainer");
+const bookSelect = document.getElementById("bookSelect");
+const bookAlert = document.getElementById("bookAlert");
+const bookDate = document.getElementById("dateBook");
 
 const cancelBtn = document.getElementById("cancelBtn");
+const bookG2Btn = document.getElementById("bookG2Btn");
 const bookBtn = document.getElementById("bookBtn");
 
 const slots = [
@@ -19,6 +23,7 @@ const slots = [
   "02:00 PM",
 ];
 let selectedButtons = [];
+let availableSlots = [];
 let appointmentSelectedDate;
 
 function createSlotsButton(unavailabeSlots) {
@@ -49,11 +54,14 @@ function createSlotsButton(unavailabeSlots) {
     });
   });
 }
+
 const getSlotsFromServer = async (date) => {
   const response = await fetch(`/appointment/${encodeURIComponent(date)}`, {
     method: "Get",
   });
   const data = await response.json();
+  console.log("Appointments:", data);
+  availableSlots = data;
   return data.map((slot) => slot.time);
 };
 
@@ -74,7 +82,7 @@ const postNewBookingsToServer = async () => {
     appointmentAlert.style.display = "block";
     appointmentAlert.classList.remove("alert-danger");
     appointmentAlert.classList.add("alert-success");
-    appointmentAlertText.textContent = "Data Updated Successfully!";
+    appointmentAlertText.textContent = "Appointments booked Successfully!";
   } else {
     appointmentAlert.style.display = "block";
     appointmentAlert.classList.remove("alert-success");
@@ -83,22 +91,75 @@ const postNewBookingsToServer = async () => {
   }
 };
 
+const createSlotsSelect = () => {
+  bookSelect.innerHTML = "";
+  let html = "";
+  availableSlots.forEach((slot) => {
+    if (slot.isTimeSlotAvailable)
+      html += `<option value="${slot._id}" selected>${slot.time}</option>`;
+  });
+  bookSelect.innerHTML = html;
+};
+
+const postUserAppointmentId = async (id) => {
+  const data = {
+    userName: getUserNameFromCookie(),
+    appointmentId: id,
+  };
+  const response = await fetch(`/appointment`, {
+    method: "Put",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  const bookAlertText = bookAlert.firstElementChild;
+
+  if (response.ok) {
+    bookAlert.style.display = "block";
+    bookAlert.classList.remove("alert-danger");
+    bookAlert.classList.add("alert-success");
+    bookAlertText.textContent = "Appointment booked Successfully!";
+  } else {
+    bookAlert.style.display = "block";
+    bookAlert.classList.remove("alert-success");
+    bookAlert.classList.add("alert-danger");
+    bookAlertText.textContent = "Something went wrong!";
+  }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
-  appointmentDate.addEventListener("change", async () => {
-    //TODO: get below array from server
-    appointmentSelectedDate = appointmentDate.value;
-    const bookedSlots = await getSlotsFromServer(appointmentSelectedDate);
-    console.log("slots:", slots);
-    createSlotsButton(bookedSlots);
-    console.log("appointment date:", appointmentSelectedDate);
-  });
-  cancelBtn.addEventListener("click", () => {
-    selectedButtons = [];
-    createSlotsButton(["10:00 AM", "10:30 AM", "01:30 PM"]);
-  });
-  bookBtn.addEventListener("click", () => {
-    console.log("Final Booking", selectedButtons);
-    postNewBookingsToServer();
-    //TODO: send to server to register
-  });
+  if (bookDate)
+    bookDate.addEventListener("change", async () => {
+      bookSelectedDate = bookDate.value;
+      const bookSlots = await getSlotsFromServer(bookSelectedDate);
+      createSlotsSelect();
+    });
+  if (bookSelect)
+    bookSelect.addEventListener("change", () => {
+      console.log("Select Change:", bookSelect.value);
+    });
+  if (appointmentDate)
+    appointmentDate.addEventListener("change", async () => {
+      //TODO: get below array from server
+      appointmentSelectedDate = appointmentDate.value;
+      selectedButtons = [];
+      const bookedSlots = await getSlotsFromServer(appointmentSelectedDate);
+      createSlotsButton(bookedSlots);
+      console.log("appointment date:", appointmentSelectedDate);
+    });
+  if (cancelBtn)
+    cancelBtn.addEventListener("click", async () => {
+      selectedButtons = [];
+      const bookedSlots = await getSlotsFromServer(appointmentSelectedDate);
+      createSlotsButton(bookedSlots);
+    });
+  if (bookG2Btn)
+    bookG2Btn.addEventListener("click", () =>
+      postUserAppointmentId(bookSelect.value)
+    );
+  if (bookBtn)
+    bookBtn.addEventListener("click", () => {
+      console.log("Final Booking", selectedButtons);
+      postNewBookingsToServer();
+      //TODO: send to server to register
+    });
 });

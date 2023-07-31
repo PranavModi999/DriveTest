@@ -44,6 +44,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  appointmentId: {
+    default: "N/A",
+    type: String,
+  },
   car_details: {
     make: {
       default: "default",
