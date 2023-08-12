@@ -7,6 +7,7 @@ const bookDate = document.getElementById("dateBook");
 
 const cancelBtn = document.getElementById("cancelBtn");
 const bookG2Btn = document.getElementById("bookG2Btn");
+const bookGBtn = document.getElementById("bookGBtn");
 const bookBtn = document.getElementById("bookBtn");
 
 const slots = [
@@ -101,11 +102,13 @@ const createSlotsSelect = () => {
   bookSelect.innerHTML = html;
 };
 
-const postUserAppointmentId = async (id) => {
+const postUserAppointmentId = async (id, testType) => {
   const data = {
     userName: getUserNameFromCookie(),
+    TestType: testType,
     appointmentId: id,
   };
+  console.log("apponintment data:", data);
   const response = await fetch(`/appointment`, {
     method: "Put",
     headers: { "content-type": "application/json" },
@@ -154,7 +157,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   if (bookG2Btn)
     bookG2Btn.addEventListener("click", () =>
-      postUserAppointmentId(bookSelect.value)
+      postUserAppointmentId(bookSelect.value, "G2")
+    );
+  if (bookGBtn)
+    bookGBtn.addEventListener("click", () =>
+      postUserAppointmentId(bookSelect.value, "G")
     );
   if (bookBtn)
     bookBtn.addEventListener("click", () => {

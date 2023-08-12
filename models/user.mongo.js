@@ -48,6 +48,16 @@ const userSchema = new mongoose.Schema({
     default: "N/A",
     type: String,
   },
+  testType: {
+    default: "N/A",
+    type: String,
+  },
+  comment: {
+    type: String,
+  },
+  testResult: {
+    type: String,
+  },
   car_details: {
     make: {
       default: "default",

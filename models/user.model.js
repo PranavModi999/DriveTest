@@ -75,11 +75,13 @@ const verifyUser = async (user) => {
   }
 };
 
-const updateUserAppointment = async ({ userName, appointmentId }) => {
+const updateUserAppointment = async ({ userName, TestType, appointmentId }) => {
+  console.log("Testtype:", TestType);
   const result = await userDatabase.findOneAndUpdate(
     { userName: userName },
     {
       appointmentId: appointmentId,
+      testType: TestType,
     }
   );
   console.log("result:", result);
