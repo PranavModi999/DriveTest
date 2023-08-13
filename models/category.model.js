@@ -1,4 +1,10 @@
 const categoryList = {
+  examiner: {
+    title: "Examiner",
+    description:
+      "The Examiner plays a crucial role in the Ontario DriveTest process, responsible for evaluating and assessing driving skills during road tests. Examiners are highly trained professionals who ensure that applicants meet the necessary standards for safe and responsible driving. They evaluate a wide range of skills, including vehicle control, defensive driving, obeying traffic rules, and proper communication on the road.",
+    image: "images/examiner.jpg",
+  },
   appointment: {
     title: "Appointment",
     description:

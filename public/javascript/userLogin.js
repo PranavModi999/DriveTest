@@ -7,6 +7,7 @@ const userAlertLogin = document.getElementById("userAlertLogin");
 const gNavLink = document.getElementById("gNavLink");
 const g2NavLink = document.getElementById("g2NavLink");
 const appointmentLink = document.getElementById("appointmentLink");
+const examinerLink = document.getElementById("examinerLink");
 const logout = document.getElementById("logout");
 
 function checkUserStatus() {
@@ -21,6 +22,8 @@ function checkUserStatus() {
       g2NavLink.style.display = "block";
     } else if (name === "userType" && value === "Admin") {
       appointmentLink.style.display = "block";
+    } else if (name === "userType" && value === "Examiner") {
+      examinerLink.style.display = "block";
     }
   }
 }
