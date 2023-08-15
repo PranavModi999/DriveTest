@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   testResult: {
-    type: String,
+    type: Boolean,
   },
   car_details: {
     make: {

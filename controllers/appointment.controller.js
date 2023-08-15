@@ -4,7 +4,10 @@ const {
   updateSlotStatus,
 } = require("../models/appointment.model");
 const { getCategory } = require("../models/category.model");
-const { updateUserAppointment } = require("../models/user.model");
+const {
+  updateUserAppointment,
+  getcompletedTestResults,
+} = require("../models/user.model");
 
 const renderAppointmentPage = (req, res) => {
   return res.render("appointment", {
@@ -17,6 +20,11 @@ const getBookedSlots = async (req, res) => {
   //TODO: fetch from db above booked slots
   const bookedSlots = await getBookedSlotsByDate(req.params.selectDate);
   return res.status(200).json(bookedSlots);
+};
+
+const getTestResults = async (req, res) => {
+  const results = await getcompletedTestResults();
+  return res.status(200).json(results);
 };
 
 const postBookedSlots = async (req, res) => {
@@ -45,4 +53,5 @@ module.exports = {
   renderAppointmentPage,
   postBookedSlots,
   getBookedSlots,
+  getTestResults,
 };

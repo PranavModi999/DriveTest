@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 
 const userDatabase = require("./user.mongo");
+const appointmentDatabase = require("./appointment.mongo");
 
 async function updateUserByUserName(user) {
   console.log("UPDATE:", user);
@@ -32,6 +33,17 @@ async function saveUser(user) {
   console.log(`Succesfully stored User ${user.userName}`);
   return "success";
 }
+const updateTestResultsByUserName = async (data) => {
+  const result = await userDatabase.findOneAndUpdate(
+    {
+      userName: data.userName,
+    },
+    {
+      testResult: data.testResult,
+      comment: data.testComment,
+    }
+  );
+};
 
 const updateUserByLicensenumber = async (data) => {
   const result = await userDatabase.updateOne(
@@ -87,10 +99,40 @@ const updateUserAppointment = async ({ userName, TestType, appointmentId }) => {
   console.log("result:", result);
 };
 
+const getUsersByAppointment = async () => {
+  const usersWithTestType = await userDatabase.find({
+    testType: { $ne: "N/A" },
+  });
+
+  const userPromises = usersWithTestType.map(async (user) => {
+    if (user.appointmentId !== "N/A") {
+      const appointment = await appointmentDatabase
+        .findById(user.appointmentId)
+        .exec();
+      return { user, appointment };
+    } else {
+      return { user, appointment: null };
+    }
+  });
+
+  return await Promise.all(userPromises);
+};
+
+const getcompletedTestResults = async () => {
+  const results = await userDatabase.find({
+    testResult: { $in: [true, false] },
+  });
+  console.log("Fetch results:", results);
+  return results;
+};
+
 module.exports = {
+  updateTestResultsByUserName,
   updateUserByLicensenumber,
+  getcompletedTestResults,
   getUserByLicenseNumber,
   updateUserAppointment,
+  getUsersByAppointment,
   updateUserByUserName,
   getUserByUserName,
   verifyUser,
