@@ -10,6 +10,24 @@ const bookG2Btn = document.getElementById("bookG2Btn");
 const bookGBtn = document.getElementById("bookGBtn");
 const bookBtn = document.getElementById("bookBtn");
 
+const testResultTable = document.getElementById("testResultTable");
+
+const g2ResultContainer = document.getElementById("g2ResultContainer");
+const g2TestStatus = document.getElementById("g2TestStatus");
+const g2Resultbody = document.getElementById("g2Resultbody");
+const g2ResultUserName = document.getElementById("g2ResultUserName");
+const g2ResultTestType = document.getElementById("g2ResultTestType");
+const g2ResultTestResult = document.getElementById("g2ResultTestResult");
+const g2ResultTestComment = document.getElementById("g2ResultTestComment");
+
+const gResultContainer = document.getElementById("gResultContainer");
+const gTestStatus = document.getElementById("gTestStatus");
+const gResultbody = document.getElementById("gResultbody");
+const gResultUserName = document.getElementById("gResultUserName");
+const gResultTestType = document.getElementById("gResultTestType");
+const gResultTestResult = document.getElementById("gResultTestResult");
+const gResultTestComment = document.getElementById("gResultTestComment");
+
 const slots = [
   "09:00 AM",
   "09:30 AM",
@@ -129,7 +147,120 @@ const postUserAppointmentId = async (id, testType) => {
   }
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+const createTestTable = (users) => {
+  console.log(users);
+  testResultTable.innerHTML = "";
+  let html = "";
+  for (let i = 1; i <= users.length; i++) {
+    const user = users[i - 1];
+    html += `<tr>
+              <td>${i}</td>
+              <td>${user.userName}</td>
+              <td>${user.car_details.make}</td>
+              <td>${user.car_details.model}</td>
+              <td>${user.testType}</td>
+              <td class="text-${
+                user.testResult === true ? "success" : "danger"
+              } bold"><strong>${
+      user.testResult == true ? "Passed" : "Failed"
+    }</strong></td>
+            </tr>`;
+  }
+  testResultTable.innerHTML = html;
+};
+async function testResultHandler(type) {
+  if (g2ResultContainer) {
+    const response = await fetch(
+      `/appointment/results/${encodeURIComponent(getUserNameFromCookie())}`,
+      { method: "Get" }
+    );
+    const responseJson = await response.json();
+    if (response.ok && responseJson.testType.toUpperCase() == "G2") {
+      console.log("G2 Result:", responseJson);
+      if (
+        // false
+        responseJson.testResult === true ||
+        responseJson.testResult === false
+      ) {
+        g2ResultContainer.style.display = "block";
+        g2Resultbody.style.display = "block";
+        g2TestStatus.classList.remove("text-warning");
+        g2TestStatus.classList.add("text-success");
+        g2TestStatus.firstElementChild.textContent = "COMPLETE";
+
+        g2ResultUserName.textContent = responseJson.userName;
+        g2ResultTestType.textContent = responseJson.testType;
+        g2ResultTestResult.textContent =
+          responseJson.testResult === true ? "Passed" : "Failed";
+        if (responseJson.testResult === true) {
+          g2ResultTestResult.classList.remove("text-danger");
+          g2ResultTestResult.classList.add("text-success");
+        } else {
+          g2ResultTestResult.classList.remove("text-success");
+          g2ResultTestResult.classList.add("text-danger");
+        }
+        g2ResultTestComment.textContent = responseJson.comment;
+      } else {
+        g2ResultContainer.style.display = "block";
+        g2Resultbody.style.display = "none";
+        g2TestStatus.classList.remove("text-success");
+        g2TestStatus.classList.add("text-warning");
+        g2TestStatus.firstElementChild.textContent = "PENDING";
+      }
+    } else {
+      console.log("Not G2 user");
+    }
+  }
+  if (gResultContainer) {
+    const response = await fetch(
+      `/appointment/results/${encodeURIComponent(getUserNameFromCookie())}`,
+      { method: "Get" }
+    );
+    const responseJson = await response.json();
+    if (response.ok && responseJson.testType.toUpperCase() == "G") {
+      console.log("G Result:", responseJson);
+      if (
+        // false
+        responseJson.testResult === true ||
+        responseJson.testResult === false
+      ) {
+        gResultContainer.style.display = "block";
+        gResultbody.style.display = "block";
+        gTestStatus.classList.remove("text-warning");
+        gTestStatus.classList.add("text-success");
+        gTestStatus.firstElementChild.textContent = "COMPLETE";
+
+        gResultUserName.textContent = responseJson.userName;
+        gResultTestType.textContent = responseJson.testType;
+        gResultTestResult.textContent =
+          responseJson.testResult === true ? "Passed" : "Failed";
+        if (responseJson.testResult === true) {
+          gResultTestResult.classList.remove("text-danger");
+          gResultTestResult.classList.add("text-success");
+        } else {
+          gResultTestResult.classList.remove("text-success");
+          gResultTestResult.classList.add("text-danger");
+        }
+        gResultTestComment.textContent = responseJson.comment;
+      } else {
+        gResultContainer.style.display = "block";
+        gResultbody.style.display = "none";
+        gTestStatus.classList.remove("text-success");
+        gTestStatus.classList.add("text-warning");
+        gTestStatus.firstElementChild.textContent = "PENDING";
+      }
+    } else {
+      console.log("Not G user");
+    }
+  }
+}
+document.addEventListener("DOMContentLoaded", async () => {
+  testResultHandler();
+
+  if (testResultTable) {
+    const response = await fetch("/appointment/results", { method: "Get" });
+    createTestTable(await response.json());
+  }
   if (bookDate)
     bookDate.addEventListener("change", async () => {
       bookSelectedDate = bookDate.value;

@@ -26,7 +26,52 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="container">
+            <div class="my-3" id="g2ResultContainer" style="display: none">
+              <h6 class="car-title">
+                <strong>TEST STATUS: </strong>
+                <span id="g2TestStatus" class="text-success"
+                  ><strong>COMPLETE</strong></span
+                >
+              </h6>
+              <div id="g2Resultbody" style="display: block">
+                <div class="row">
+                  <div class="col">
+                    <p class="card-text">
+                      <strong>Username:</strong>
+                      <br />
+                      <span id="g2ResultUserName">hem</span>
+                    </p>
+                  </div>
+                  <div class="col">
+                    <p class="card-text">
+                      <strong>Test Type:</strong>
+                      <br />
+                      <span
+                        class="text-uppercase text-black"
+                        id="g2ResultTestType"
+                        >G</span
+                      >
+                    </p>
+                  </div>
+                </div>
+                <p class="card-text">
+                  <strong>TEST RESULT:</strong>
+                  <br />
+                  <span
+                    ><strong id="g2ResultTestResult" class="text-success"
+                      >Passed</strong
+                    ></span
+                  >
+                </p>
+                <p class="card-text">
+                  <strong>Test Comment:</strong>
+                  <br />
+                  <span id="g2ResultTestComment"></span>
+                </p>
+              </div>
+            </div>
+
+            <div>
               <h1>Book an Appointment!</h1>
               <div
                 id="bookAlert"

@@ -7,8 +7,14 @@ const appointmentRouter = express.Router();
 //render appointment page
 appointmentRouter.get("/", appointmentController.renderAppointmentPage);
 
-//appointment results
+//appointment all results
 appointmentRouter.get("/results", appointmentController.getTestResults);
+
+//appointment individual results
+appointmentRouter.get(
+  "/results/:userName",
+  appointmentController.getIndividualTestResult
+);
 
 //returned stored booked slots
 appointmentRouter.get("/:selectDate", appointmentController.getBookedSlots);

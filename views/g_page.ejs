@@ -12,7 +12,50 @@
             <h3>Welcome to <span> <%= data.title %> </span>!</h3>
             <hr />
 
-            <p><%= data.description %></p>
+            <div class="my-3" id="gResultContainer" style="display: none">
+              <h6 class="car-title">
+                <strong>TEST STATUS: </strong>
+                <span id="gTestStatus" class="text-success"
+                  ><strong>COMPLETE</strong></span
+                >
+              </h6>
+              <div id="gResultbody" style="display: block">
+                <div class="row">
+                  <div class="col">
+                    <p class="card-text">
+                      <strong>Username:</strong>
+                      <br />
+                      <span id="gResultUserName">hem</span>
+                    </p>
+                  </div>
+                  <div class="col">
+                    <p class="card-text">
+                      <strong>Test Type:</strong>
+                      <br />
+                      <span
+                        class="text-uppercase text-black"
+                        id="gResultTestType"
+                        >G</span
+                      >
+                    </p>
+                  </div>
+                </div>
+                <p class="card-text">
+                  <strong>TEST RESULT:</strong>
+                  <br />
+                  <span
+                    ><strong id="gResultTestResult" class="text-success"
+                      >Passed</strong
+                    ></span
+                  >
+                </p>
+                <p class="card-text">
+                  <strong>Test Comment:</strong>
+                  <br />
+                  <span id="gResultTestComment"></span>
+                </p>
+              </div>
+            </div>
             <div class="container">
               <h1>Book an Appointment!</h1>
               <div

@@ -7,6 +7,7 @@ const { getCategory } = require("../models/category.model");
 const {
   updateUserAppointment,
   getcompletedTestResults,
+  getUserByUserName,
 } = require("../models/user.model");
 
 const renderAppointmentPage = (req, res) => {
@@ -25,6 +26,10 @@ const getBookedSlots = async (req, res) => {
 const getTestResults = async (req, res) => {
   const results = await getcompletedTestResults();
   return res.status(200).json(results);
+};
+const getIndividualTestResult = async (req, res) => {
+  const user = await getUserByUserName(req.params.userName);
+  return res.status(200).json(user);
 };
 
 const postBookedSlots = async (req, res) => {
@@ -50,6 +55,7 @@ const putAppointmentIdIntoUser = async (req, res) => {
 };
 module.exports = {
   putAppointmentIdIntoUser,
+  getIndividualTestResult,
   renderAppointmentPage,
   postBookedSlots,
   getBookedSlots,

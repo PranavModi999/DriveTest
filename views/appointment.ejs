@@ -10,6 +10,7 @@
             <h3>Welcome to <span> <%= data.title %> </span>!</h3>
             <hr />
             <p><%= data.description %></p>
+            <h4 class="my-4">Create Appointment Slots</h4>
             <div class="container mt-2">
               <div class="row">
                 <div class="col-md-6">
@@ -65,6 +66,22 @@
           <div class="col-4">
             <img src="<%= data.image %>" class="img-fluid p-auto d-block" />
           </div>
+        </div>
+        <div class="container mt-4">
+          <h4>Test Results</h4>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>User Name</th>
+                <th>Car Make</th>
+                <th>Car Model</th>
+                <th>Test Type</th>
+                <th>Test Result</th>
+              </tr>
+            </thead>
+            <tbody id="testResultTable"></tbody>
+          </table>
         </div>
       </div>
     </main>
